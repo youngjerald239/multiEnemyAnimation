@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function(){
             this.width = this.spriteWidth/2
             this.height = this.spriteHeight/2
             this.x = this.game.width
-            this.y = Math.random() * this.game.height
+            this.y = this.game.height - this.height
             this.image = worm 
             this.vx = Math.random() * 0.1 + 0.1
         }
