@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', function(){
             this.width = width
             this.height = height
             this.enemies = []
-            this.enemyInterval = 100
+            this.enemyInterval = 500
             this.enemyTimer = 0
-            this.enemyTypes = ['worm', 'ghost']
+            this.enemyTypes = ['worm', 'ghost', 'spider']
             
         }
         update(deltaTime){
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function(){
             const randomEnemy = this.enemyTypes[Math.floor(Math.random() * this.enemyTypes.length)]
             if (randomEnemy == 'worm') this.enemies.push(new Worm(this))
             else if (randomEnemy == 'ghost') this.enemies.push(new Ghost(this))
+            else if (randomEnemy == 'spider') this.enemies.push(new Spider(this))
             
             // this.enemies.sort(function(a,b){
             //     return a.y - b.y
@@ -89,12 +90,40 @@ document.addEventListener('DOMContentLoaded', function(){
             this.y += Math.sin(this.angle) * this.curve
             this.angle+= 0.04
         }
-        draw(){
+        draw(ctx){
             ctx.save()
             ctx.globalAlpha = 0.7
             super.draw(ctx)
             ctx.restore()
         }
+    }
+    class Spider extends Enemy {
+        constructor(game){
+            super(game)
+            this.spriteWidth = 310
+            this.spriteHeight = 175
+            this.width = this.spriteWidth/2
+            this.height = this.spriteHeight/2
+            this.x = Math.random() * this.game.width
+            this.y = 0 - this.height
+            this.image = spider 
+            this.vx = 0
+            this.vy = Math.random() * 0.1 + 0.1
+            this.maxLength = Math.random() * game.height
+        }
+        update(deltaTime){
+            super.update(deltaTime)
+            this.y += this.vy * deltaTime
+            if (this.y > this.maxLength) this.vy *= -1
+        }
+        draw(ctx){
+            ctx.beginPath()
+            ctx.moveTo(0, 0)
+            ctx.lineTo(this.x, this.y)
+            ctx.stroke()
+            super.draw(ctx)
+        }
+
     }
 
     const game = new Game(ctx, canvas.width, canvas.height);
