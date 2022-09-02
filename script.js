@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', function(){
             if (randomEnemy == 'worm') this.enemies.push(new Worm(this))
             else if (randomEnemy == 'ghost') this.enemies.push(new Ghost(this))
             
-            this.enemies.sort(function(a,b){
-                return a.y - b.y
-            })
+            // this.enemies.sort(function(a,b){
+            //     return a.y - b.y
+            // })
         }
     }
 
@@ -78,11 +78,16 @@ document.addEventListener('DOMContentLoaded', function(){
             this.width = this.spriteWidth/2
             this.height = this.spriteHeight/2
             this.x = this.game.width
-            this.y = Math.random() * this.game.height
+            this.y = Math.random() * this.game.height * 0.6
             this.image = ghost 
             this.vx = Math.random() * 0.2 + 0.1
         }
-
+        draw(){
+            ctx.save()
+            ctx.globalAlpha = 0.5
+            super.draw(ctx)
+            ctx.restore()
+        }
     }
 
     const game = new Game(ctx, canvas.width, canvas.height);
