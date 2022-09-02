@@ -45,18 +45,19 @@ document.addEventListener('DOMContentLoaded', function(){
             if (this.x < 0 - this.width) this.markedForDeletion = true; 
         }
         draw(ctx){
-            // ctx.fillRect(this.x, this.y, this.width, this.height)
-            ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
+            ctx.drawImage(this.image, 0, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
         }
     }
 
     class Worm extends Enemy {
         constructor(game){
             super(game)
-            this.x = this.game.width
-            this.y = Math.random() * this.game.height
+            this.spriteWidth = 229
+            this.spriteHeight = 171
             this.width = 200
             this.height = 100
+            this.x = this.game.width
+            this.y = Math.random() * this.game.height
             this.image = worm 
         }
 
