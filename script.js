@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function(){
             this.enemies.forEach(object => object.update())
         }
         draw(){
-            this.enemies.forEach(object => object.draw())
+            this.enemies.forEach(object => object.draw(this.ctx))
         }
         #addNewEnemy(){
             this.enemies.push(new Enemy(this))
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(){
         update(){
             this.x--
         }
-        draw(){
+        draw(ctx){
             ctx.fillRect(this.x, this.y, this.width, this.height)
         }
     }
