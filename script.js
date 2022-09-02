@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
             this.enemies = []
             this.enemyInterval = 100
             this.enemyTimer = 0
+            this.enemyTypes = ['worm', 'ghost']
             
         }
         update(deltaTime){
@@ -29,7 +30,13 @@ document.addEventListener('DOMContentLoaded', function(){
             this.enemies.forEach(object => object.draw(this.ctx))
         }
         #addNewEnemy(){
-            this.enemies.push(new Worm(this))
+            const randomEnemy = this.enemyTypes[Math.floor(Math.random() * this.enemyTypes.length)]
+            if (randomEnemy == 'worm') this.enemies.push(new Worm(this))
+            else if (randomEnemy == 'ghost') this.enemies.push(new Ghost(this))
+            
+            this.enemies.sort(function(a,b){
+                return a.y - b.y
+            })
         }
     }
 
@@ -60,6 +67,20 @@ document.addEventListener('DOMContentLoaded', function(){
             this.y = Math.random() * this.game.height
             this.image = worm 
             this.vx = Math.random() * 0.1 + 0.1
+        }
+
+    }
+    class Ghost extends Enemy {
+        constructor(game){
+            super(game)
+            this.spriteWidth = 261
+            this.spriteHeight = 209
+            this.width = this.spriteWidth/2
+            this.height = this.spriteHeight/2
+            this.x = this.game.width
+            this.y = Math.random() * this.game.height
+            this.image = ghost 
+            this.vx = Math.random() * 0.2 + 0.1
         }
 
     }
