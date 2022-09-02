@@ -10,17 +10,17 @@ document.addEventListener('DOMContentLoaded', function(){
             this.width = width
             this.height = height
             this.enemies = []
-            this.enemyInterval = 400
+            this.enemyInterval = 1000
             this.enemyTimer = 0
             
         }
-        update(){
+        update(deltaTime){
             if (this.enemyTimer  > this.enemyInterval){
                 this.#addNewEnemy()
                 this.enemyTimer = 0
                 console.log(this.enemies)
             } else {
-                this.enemyTimer++
+                this.enemyTimer+= deltaTime
             }
             this.enemies.forEach(object => object.update())
         }
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function(){
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         const deltaTime = timeStamp - lastTime
         lastTime = timeStamp
-        game.update()
+        game.update(deltaTime)
         game.draw()
         
         //some code
